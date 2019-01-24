@@ -94,6 +94,7 @@ Dynamic_range_stack::~Dynamic_range_stack() {
 }
 
 int Dynamic_range_stack::top() const {
+	if (entry_count == 0) throw underflow();
 	return stack_array[entry_count - 1];
 }
 
@@ -126,12 +127,12 @@ void Dynamic_range_stack::push(int const &obj) {
 		increaseCapacity();
 	}
 
-	if (max_count == 0 || obj > maximum()) {
+	if (max_count == 0 || obj >= maximum()) {
 		maximum_array[max_count] = obj;
 		max_count++;
 	}
 
-	if (min_count == 0 || obj < minimum()) {
+	if (min_count == 0 || obj <=	 minimum()) {
 		minimum_array[min_count] = obj;
 		min_count++;
 	}
