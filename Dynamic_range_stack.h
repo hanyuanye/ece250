@@ -4,11 +4,11 @@
  *  - Select the current calendar term and enter the year
  *  - List students with whom you had discussions and who helped you
  *
- * uWaterloo User ID:  uwuserid @uwaterloo.ca
+ * uWaterloo User ID:  h43ye @uwaterloo.ca
  * Submitted for ECE 250
  * Department of Electrical and Computer Engineering
  * University of Waterloo
- * Calender Term of Submission:  (Winter|Spring|Fall) 201N
+ * Calender Term of Submission:  Winter 2019
  *
  * By submitting this file, I affirm that
  * I am the author of all modifications to
