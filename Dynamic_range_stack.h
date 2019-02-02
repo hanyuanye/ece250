@@ -142,17 +142,14 @@ void Dynamic_range_stack::push(int const &obj) {
 }
 
 int Dynamic_range_stack::pop() {
-	auto topEntry = top();
+	int topEntry = top();
 	if (maximum_array[max_count - 1] == topEntry) {
-		maximum_array[max_count - 1] == 0;
 		max_count--;
 	}
 
 	if (minimum_array[min_count - 1] == topEntry) {
-		minimum_array[min_count - 1] == 0;
 		min_count--;
 	}
-	stack_array[entry_count] = 0;
 	entry_count--;
 	return topEntry;
 }
@@ -167,6 +164,7 @@ void Dynamic_range_stack::clear() {
 	entry_count = 0;
 	max_count = 0;
 	min_count = 0;
+	current_capacity = initial_capacity;
 }
 
 void Dynamic_range_stack::increaseCapacity() {
@@ -198,7 +196,9 @@ void Dynamic_range_stack::increaseCapacity() {
 
 std::ostream &operator<<(std::ostream &out, Dynamic_range_stack const &stack) {
 	// Print out your stacks
-
+	for (int i = 0; i < stack.entry_count; i++) {
+		out << stack.stack_array[i] << " ,";
+	}
 	return out;
 }
 
