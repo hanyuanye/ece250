@@ -6,7 +6,9 @@
 #include <vector>
 #include <deque>
 #include <unordered_set>
+#include <unordered_map>
 #include <algorithm>
+#include <queue>
 #include "Exception.h"
 
 /*****************************************
@@ -26,6 +28,7 @@ class Weighted_graph {
 		int m_vertices;
 		int m_edge_count;
 		std::vector< std::vector<double> > adjacency;
+		std::unordered_map<int, int> m_degree_map;
 
 		bool isFinished(std::vector<double>) const;
 		void print() const;
@@ -57,6 +60,10 @@ Weighted_graph::Weighted_graph(int vertices) {
 	if (vertices < 0) throw illegal_argument();
 	m_vertices = vertices;
 	adjacency = std::vector<std::vector<double>>(vertices, std::vector<double>(vertices, INF));
+	m_degree_map = std::unordered_map<int, int>();
+	for (int i = 0; i < vertices; i++) {
+		m_degree_map.insert(std::make_pair(i, 0));
+	}
 }
 
 Weighted_graph::~Weighted_graph() {
@@ -64,14 +71,9 @@ Weighted_graph::~Weighted_graph() {
 }
 
 int Weighted_graph::degree(int vertex) const {
+	print();
 	if (invalid_argument(vertex)) throw illegal_argument();
-	int degreeCount = 0;
-	for (int i = 0; i < adjacency[vertex].size(); i++) {
-		if (adjacency[vertex][i] != INF) {
-			degreeCount++;
-		}
-	}
-	return degreeCount;
+	return m_degree_map.at(vertex);
 }
 
 int Weighted_graph::edge_count() const {
@@ -152,9 +154,13 @@ void Weighted_graph::insert(int m, int n, double w) {
 	if (weight == 0) {
 		weight = INF;
 		m_edge_count--;
+		m_degree_map.at(m)--;
+		m_degree_map.at(n)--;
 	}
 	else {
 		m_edge_count++;
+		m_degree_map.at(m)++;
+		m_degree_map.at(n)++;
 	}
 
 	adjacency[m][n] = weight;
