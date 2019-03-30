@@ -22,34 +22,34 @@
  *****************************************/
 
 class Weighted_graph {
-	private:
-		static const double INF;
-		// your choice
-		int m_vertices;
-		int m_edge_count;
-		std::vector< std::vector<double> > adjacency;
-		std::unordered_map<int, int> m_degree_map;
+private:
+	static const double INF;
+	// your choice
+	int m_vertices;
+	int m_edge_count;
+	std::vector< std::vector<double> > adjacency;
+	std::unordered_map<int, int> m_degree_map;
 
-		bool isFinished(std::vector<double>) const;
-		void print() const;
-		bool invalid_argument(int vertex) const;
+	bool isFinished(std::vector<double>) const;
+	void print() const;
+	bool invalid_argument(int vertex) const;
 
-	public:
-		Weighted_graph( int = 50 );
-		~Weighted_graph();
+public:
+	Weighted_graph(int = 50);
+	~Weighted_graph();
 
-		int degree( int ) const;
-		int edge_count() const;
-		double adjacent( int, int ) const;
-		double minimum_spanning_tree( int ) const;
-		bool is_connected() const;
+	int degree(int) const;
+	int edge_count() const;
+	double adjacent(int, int) const;
+	double minimum_spanning_tree(int) const;
+	bool is_connected() const;
 
-		void insert( int, int, double );
+	void insert(int, int, double);
 
 
 	// Friends
 
-	friend std::ostream &operator << ( std::ostream &, Weighted_graph const & );
+	friend std::ostream &operator << (std::ostream &, Weighted_graph const &);
 };
 
 const double Weighted_graph::INF = std::numeric_limits<double>::infinity();
@@ -71,7 +71,7 @@ Weighted_graph::~Weighted_graph() {
 }
 
 int Weighted_graph::degree(int vertex) const {
-	print();
+	//print();
 	if (invalid_argument(vertex)) throw illegal_argument();
 	return m_degree_map.at(vertex);
 }
@@ -88,6 +88,7 @@ double Weighted_graph::adjacent(int m, int n) const {
 
 //Breadth first search implementation
 bool Weighted_graph::is_connected() const {
+	if (m_vertices == 0) return false;
 	std::vector<int> visited(m_vertices, 0);
 	std::deque<int> queue;
 	auto current = 0;
@@ -140,7 +141,7 @@ double Weighted_graph::minimum_spanning_tree(int vertice) const {
 		}
 		inputVertices[index] = INF;
 	}
-	
+
 	return currWeight;
 }
 
@@ -157,7 +158,7 @@ void Weighted_graph::insert(int m, int n, double w) {
 		m_degree_map.at(m)--;
 		m_degree_map.at(n)--;
 	}
-	else {
+	else if (adjacency[m][n] == INF) {
 		m_edge_count++;
 		m_degree_map.at(m)++;
 		m_degree_map.at(n)++;
@@ -189,7 +190,7 @@ bool Weighted_graph::invalid_argument(int vertex) const {
 
 
 
-std::ostream &operator << ( std::ostream &out, Weighted_graph const &graph ) {
+std::ostream &operator << (std::ostream &out, Weighted_graph const &graph) {
 	// Your implementation
 
 	return out;
